@@ -92,6 +92,8 @@ let CASH = "";
 let config = "";
 let K = 0;
 let COOKIES_SPLIT = "";
+let dk,sp,ljyd,ydrw,wktime;
+
 
 const logs = 0; // 0为关闭日志，1为开启
 const notifyInterval = 3;
@@ -105,9 +107,8 @@ const nowTimes = new Date(
     new Date().getTimezoneOffset() * 60 * 1000 +
     8 * 60 * 60 * 1000
 );
-let wktime;
-let ydrw;
-let obj;
+
+
 
 const qqreadbdArr = [];
 let qqreadbodyVal = "";
@@ -194,7 +195,13 @@ if ($.isNode()) {
 }
 
 // 今日0点时间戳
-const daytime = new Date(nowTimes.toLocaleDateString()).getTime();
+if ($.isNode()) {
+  daytime =
+    new Date(new Date().toLocaleDateString()).getTime() - 8 * 60 * 60 * 1000;
+} else {
+  daytime = new Date(new Date().toLocaleDateString()).getTime();
+}
+
 
 function GetCookie() {
   if ($request && $request.url.indexOf("addReadTimeWithBid?") >= 0) {
